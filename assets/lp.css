@@ -164,7 +164,7 @@
 
 /* ---------- examples ---------- */
 .examples { padding: 120px 0; }
-.ex-lead { font-size: 16px; line-height: 28px; letter-spacing: .04em; color: var(--sub); margin: 12px 0 0; }
+.ex-lead { font-size: 16px; line-height: 28px; letter-spacing: .04em; color: var(--ink); margin: 12px 0 0; }
 .ex-slider { position: relative; margin: 40px calc(50% - 50vw) 0; }
 .ex-arrows { position: absolute; left: 0; right: 0; top: 148px; z-index: 2; display: flex; justify-content: space-between; padding: 0 24px; pointer-events: none; }
 .ex-arrows button { pointer-events: auto; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(255,255,255,.88); box-shadow: 0 6px 16px rgba(112,83,71,.14); color: var(--ink); cursor: pointer; display: grid; place-items: center; transition: transform .3s var(--ease); }
@@ -190,12 +190,14 @@
   background: #fff; border-radius: 14px; padding: 10px 16px 10px 14px; font-size: 13px; line-height: 20px;
   box-shadow: 0 10px 28px rgba(112,83,71,.10);
 }
-.collage .c-head { position: absolute; left: 189px; top: 314px; }
+.collage .c-head { position: absolute; left: max(40px, calc(50% - 531px)); top: 314px; } /* 1440: x189 */
 .collage .c-text { position: absolute; inset: 0; }
 .collage .c-head .en { display: block; margin-bottom: 18px; }
 .collage .c-head .h2 { white-space: nowrap; }
-.collage .c-copy { position: absolute; left: 743px; top: 365px; width: 456px; }
-.collage .c-copy p { margin: 0; font-size: 14px; line-height: 26px; color: var(--sub); }
+.collage .c-copy { position: absolute; left: calc(50% + 23px); top: 365px; width: min(456px, calc(50% - 63px)); } /* 1440: x743 */
+/* decorations keep their 1440 positions measured from the centre, so narrower desktops crop both edges evenly */
+.collage .float.pc-only { left: calc(50% + var(--x) - 720px); }
+.collage .c-copy p { margin: 0; font-size: 16px; line-height: 28px; letter-spacing: .04em; color: var(--ink); } /* 2026-10-17 ほかのセクション本文とそろえる */
 .collage .c-copy .pill { margin-top: 32px; }
 
 /* ---------- motion helpers ---------- */
@@ -292,6 +294,7 @@
   .collage .c-head .h2 { font-size: 28px; line-height: 42px; white-space: normal; }
   .collage .c-text { text-align: center; }
   .collage .c-copy { margin-top: 20px; }
+  .collage .c-copy p { font-size: 14px; line-height: 24px; }
   .collage .c-copy .pill { display: flex; width: fit-content; margin: 28px auto 0; }
 }
 
@@ -331,6 +334,11 @@ body { background: transparent; }
   /* FV sits closer to the header: 80px at 1440x900 (content centred), down to 32px on short screens so the button stays in view */
   .hero { padding-top: clamp(32px, calc((100vh - 664px) / 2), 80px); }
   .fv-deco.pc { top: calc(clamp(32px, calc((100vh - 664px) / 2), 80px) - 120px); }
+}
+
+/* for yourself below 1000px: the far-right note would be cut at the edge (2026-10-17) */
+@media (min-width: 861px) and (max-width: 999px) {
+  .collage .note-chip.c-wide { display: none; }
 }
 
 /* narrow desktops / iPad landscape: the 72px FV title would run into the side notes */

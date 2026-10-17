@@ -86,7 +86,7 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
 .h2 { font-size: 44px; line-height: 64px; font-weight: 400; margin: 0; }
 .sec-head { text-align: center; }
 .sec-head .en { display: block; margin-bottom: 14px; }
-.sec-head .lead { margin: 16px auto 0; color: var(--sub); font-size: 16px; line-height: 28px; letter-spacing: .04em; }
+.sec-head .lead { margin: 16px auto 0; color: var(--ink); font-size: 16px; line-height: 28px; letter-spacing: .04em; }
 
 /* ---------- FAQ (Figma pip / FAQ / v1) ---------- */
 .faq { padding-top: 120px; padding-bottom: 160px; }
