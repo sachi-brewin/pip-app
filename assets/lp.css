@@ -37,7 +37,7 @@
 .glass-char { position: absolute; left: 14px; top: 14px; width: 132px; height: 132px; object-fit: contain; }
 .hero .en { margin: 20px 0 0; }
 .hero h1 { font-size: 72px; line-height: 96px; font-weight: 400; margin: 12px 0 0; letter-spacing: .01em; }
-.hero .lead { margin: 38px auto 0; color: var(--sub); font-size: 16px; line-height: 28px; }
+.hero .lead { margin: 38px auto 0; color: var(--ink); font-size: 16px; line-height: 28px; } /* 2026-10-17 視認性のためsub→ink */
 .hero .cta { margin: 32px 0 0; display: flex; justify-content: center; }
 
 /* ---------- duo ---------- */
@@ -78,7 +78,7 @@
 .f-text h3 { position: relative; padding-left: 36px; }
 .f-text h3::before { content: counter(feat, decimal-leading-zero); position: absolute; left: 0; top: 0;
   font: 500 13px/33px var(--en); letter-spacing: .02em; color: #F28B8A; }
-.f-text p { margin: 0; color: var(--sub); font-size: 15px; line-height: 28px; }
+.f-text p { margin: 0; color: var(--ink); font-size: 15px; line-height: 28px; } /* 2026-10-17 視認性のためsub→ink */
 
 /* demo: rows */
 .rows { width: 342px; display: grid; gap: 10px; }
