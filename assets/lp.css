@@ -72,6 +72,12 @@
 .demo { height: 240px; border-radius: 20px; background: #fff; display: grid; place-items: center; overflow: hidden; }
 .f-text { display: grid; grid-template-columns: 364px 364px; gap: 32px; margin-top: 28px; }
 .f-text h3 { margin: 0; font-size: 22px; line-height: 33px; font-weight: 700; }
+/* 番号 01〜04：画像の白いカードの左端にそろえ、見出しは同じ行の右に続ける（2026-10-17・Figma 905:1242） */
+.features { counter-reset: feat; }
+.features > article { counter-increment: feat; }
+.f-text h3 { position: relative; padding-left: 36px; }
+.f-text h3::before { content: counter(feat, decimal-leading-zero); position: absolute; left: 0; top: 0;
+  font: 500 13px/33px var(--en); letter-spacing: .02em; color: #F28B8A; }
 .f-text p { margin: 0; color: var(--sub); font-size: 15px; line-height: 28px; }
 
 /* demo: rows */
@@ -233,7 +239,8 @@
   .demo { height: 200px; border-radius: 16px; }
   .demo > * { transform: scale(.85); }
   .f-text { grid-template-columns: 1fr; gap: 8px; margin-top: 20px; }
-  .f-text h3 { font-size: 18px; line-height: 28px; }
+  .f-text h3 { font-size: 18px; line-height: 28px; padding-left: 30px; }
+  .f-text h3::before { font-size: 11px; line-height: 28px; }
   .f-text p { font-size: 14px; line-height: 24px; }
   .count-demo { --k: 1.5; }
   .demo > .count-demo { transform: none; }
