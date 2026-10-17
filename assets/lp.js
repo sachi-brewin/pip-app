@@ -103,7 +103,7 @@
     const GEMS = { 0: ['#F4F8FE', '#BFD7F6', '#ABC4E6'], .25: ['#F7F8FE', '#CDD2F6', '#BBC0E6'], .5: ['#F9F7FD', '#DCCDF0', '#CABBE0'],
                    .75: ['#FCF6F9', '#EFC8D9', '#DFB5C7'], 1: ['#FCF7F3', '#EFCCB5', '#DFBAA1'] };
     const filled = { 1: .0, 2: .25, 3: .5, 4: .75, 5: .0, 6: .25, 7: .5, 8: 1, 9: .75, 10: .5 };
-    let html = ['月','火','水','木','金','土','日'].map(w => `<span class="w">${w}</span>`).join('');
+    let html = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].map(w => `<span class="w">${w}</span>`).join('');
     const cells = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     cells.forEach((d, i) => {
       if (d === null) { html += '<span></span>'; return; }

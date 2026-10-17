@@ -102,7 +102,7 @@
 
 /* demo: calendar */
 .cal { display: grid; grid-template-columns: repeat(7, 40px); gap: 10px; font: 600 15px/20px "DM Sans", var(--jp); }
-.cal .w { font: 400 12px/18px var(--jp); color: var(--sub); text-align: center; }
+.cal .w { font: 400 10px/18px var(--en); color: #8C817A; text-align: center; } /* app 05: MON–SUN, Unbounded Regular 10px #8C817A */
 .cal .d { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: var(--ink); }
 .cal .d.e { color: var(--muted); }
 .cal .d.today span { text-decoration: underline; text-underline-offset: 4px; }
