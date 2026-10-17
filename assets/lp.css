@@ -29,7 +29,7 @@
 .glass-blurs .nj { position: absolute; border-radius: 50%; opacity: .8; filter: blur(12px); }
 .glass {
   position: absolute; left: 16px; top: 16px; width: 128px; height: 128px; border-radius: 50%;
-  background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.5), rgba(255,252,249,.18) 55%, rgba(255,252,249,.12));
+  background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.5), rgba(255,255,255,.18) 55%, rgba(255,255,255,.12));
   border: 1px solid rgba(255,255,255,.9);
   backdrop-filter: blur(4px) saturate(1.2); -webkit-backdrop-filter: blur(4px) saturate(1.2);
   box-shadow: inset 0 2px 2px rgba(255,255,255,.9), inset 0 -8px 20px rgba(255,255,255,.3), 0 12px 32px rgba(112,83,71,.10);
@@ -45,7 +45,7 @@
 .duo h2 { text-align: center; font-size: 20px; line-height: 30px; font-weight: 700; margin: 0 0 16px; }
 .stage {
   position: relative; height: 520px; border-radius: 24px; overflow: hidden; isolation: isolate; clip-path: inset(0 round 24px);
-  background: linear-gradient(180deg, #FEFEFE 0%, #FCFAF8 55%, #F4EEE9 100%);
+  background: #fff; /* Figmaのカードの地は白（2026-10-17 旧ベージュ灰色のグラデーションは再現ミスとして修正） */
 }
 .stage .nj { position: absolute; border-radius: 50%; z-index: -1; filter: blur(130px); }
 .phone {
@@ -140,7 +140,7 @@
 .r-txt .sub { margin: 0; font-size: 14px; line-height: 22px; font-weight: 700; letter-spacing: .05em; color: var(--ink); }
 .r-txt h3 { margin: 6px 0; font-size: 24px; line-height: 34px; font-weight: 400; }
 .r-txt small { font-size: 11px; line-height: 18px; color: var(--muted); }
-.r-note { text-align: center; font-size: 12px; color: var(--muted); margin: 16px 0 0; }
+.r-note { text-align: center; font-size: 12px; color: var(--sub); margin: 16px 0 0; }
 
 /* keep-going CTA (app background D) */
 .keep { position: relative; isolation: isolate; overflow: hidden; clip-path: inset(0 round 32px); margin-top: 120px; border-radius: 32px; background: var(--milk); padding: 96px 48px; text-align: center; }
@@ -167,7 +167,7 @@
 .ex-row::-webkit-scrollbar { display: none; }
 .ex { flex: 0 0 280px; scroll-snap-align: start; margin: 0; }
 .ex .ph { position: relative; height: 340px; border-radius: 20px; overflow: hidden; }
-.ex .ph img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.05) contrast(.9) saturate(.82) sepia(.06); transition: transform .9s var(--ease); }
+.ex .ph img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.06) contrast(.8) saturate(.72) sepia(.12); /* 案B：コントラスト・彩度を下げ、暗部を持ち上げて暖色に（Figmaの画像フィルターに近づけた） */ transition: transform .9s var(--ease); }
 .ex:hover .ph img { transform: scale(1.04); }
 .ex .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(74,59,51,0) 50%, rgba(74,59,51,.5) 100%); }
 .ex .date { position: absolute; left: 22px; bottom: 24px; z-index: 1; color: #fff; }
@@ -286,6 +286,44 @@
   .collage .c-text { text-align: center; }
   .collage .c-copy { margin-top: 20px; }
   .collage .c-copy .pill { display: flex; width: fit-content; margin: 28px auto 0; }
+}
+
+/* ---------- moving warm background behind the page (2026-10-17, prototype C) ----------
+   White base with warm color pools along the edges; the pools drift slowly and their colors cycle with scroll.
+   lp.js clears a small hole around the FV glass and fades the layer over the grey panel / duo cards / footer. */
+html { background: #fff; }
+body { background: transparent; }
+.page-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.page-bg .flow { position: absolute; inset: -10%; opacity: var(--flow-o, .45); filter: blur(50px); will-change: opacity;
+  background: radial-gradient(38% 50% at var(--x1, 4%) var(--y1, 30%), var(--c1, #EEC8AF) 0, transparent 70%),
+              radial-gradient(38% 50% at var(--x2, 96%) var(--y2, 45%), var(--c2, #EEC3D6) 0, transparent 70%),
+              radial-gradient(44% 36% at var(--x3, 70%) var(--y3, 100%), var(--c3, #F3C9BC) 0, transparent 70%),
+              radial-gradient(40% 34% at var(--x4, 50%) var(--y4, 55%), var(--c4, transparent) 0, transparent 70%);
+  -webkit-mask-image: var(--hole-mask, none); mask-image: var(--hole-mask, none); }
+
+/* ---------- research: PC keeps the heading still while the three results scroll (2026-10-17) ---------- */
+.r-note-pc { display: none; }
+/* two columns only where there is room (narrower desktops / iPad landscape keep the single-column layout) */
+@media (min-width: 1280px) {
+  .r-split { display: grid; grid-template-columns: 420px minmax(0, 1fr); column-gap: 96px; align-items: start; }
+  .r-split > .sec-head { position: sticky; top: 140px; text-align: left; margin-top: 48px; }
+  .r-split > .sec-head .h2 { font-size: 40px; line-height: 60px; }
+  .r-split > .sec-head .h2 br.br-sp { display: inline; }
+  .r-note-pc { display: block; text-align: left; margin-top: 24px; line-height: 20px; }
+  .r-note-sp { display: none; }
+  .r-split .r-rows { margin: 0; }
+  .r-split .r-row { justify-content: flex-start; gap: 48px; padding: 72px 0; }
+  .r-split .r-row:first-child { border-top: 0; }
+  .r-split .r-val { width: 156px; flex: none; align-items: center; text-align: center; }
+  .r-split .r-val b { font-size: 120px; line-height: 120px; letter-spacing: 0; }
+  .r-split .r-val span { margin-top: 6px; }
+  .r-split .r-txt { width: auto; flex: 1; max-width: 440px; }
+  .r-split .r-txt .sub { letter-spacing: .01em; }
+}
+@media (min-width: 861px) {
+  /* FV sits closer to the header: 80px at 1440x900 (content centred), down to 32px on short screens so the button stays in view */
+  .hero { padding-top: clamp(32px, calc((100vh - 664px) / 2), 80px); }
+  .fv-deco.pc { top: calc(clamp(32px, calc((100vh - 664px) / 2), 80px) - 120px); }
 }
 
 /* narrow desktops / iPad landscape: the 72px FV title would run into the side notes */

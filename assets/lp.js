@@ -178,6 +178,69 @@
     }
   }
 
+  /* ---------- FV parallax: the floating orbs and notes drift at different depths (text never moves) ---------- */
+  // Uses the separate `translate` property so it stacks with the float animation's transform.
+  const depthItems = [...document.querySelectorAll('.fv-deco [data-depth]')];
+  const hero = document.querySelector('.hero');
+  if (depthItems.length && hero && !reduce) {
+    let ticking = false;
+    const apply = () => {
+      ticking = false;
+      const y = window.scrollY;
+      if (y > hero.offsetTop + hero.offsetHeight) return; // FV is out of view
+      depthItems.forEach(el => { el.style.translate = `0 ${(-y * parseFloat(el.dataset.depth)).toFixed(1)}px`; });
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
+    apply();
+  }
+
+  /* ---------- moving warm background (prototype C, 2026-10-17) ----------
+     Warm pools drift along the edges and cycle peach → coral → pink → light orange with scroll.
+     During the FV only a small hole around the glass character stays white (so the glass does not get muddy);
+     after the FV a fourth pool fades in at the centre. Over the grey panel, the duo cards and the footer the layer fades out. */
+  const flow = document.querySelector('.page-bg .flow');
+  if (flow) {
+    const WARM = ['#EEC8AF', '#F3C9BC', '#EEC3D6', '#F6D5C0'];
+    const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const tone = k => { const n = WARM.length, x = ((k % 1) + 1) % 1 * n, i = Math.floor(x), t = x - i, A = hex(WARM[i]), B = hex(WARM[(i + 1) % n]); return A.map((v, j) => Math.round(v + (B[j] - v) * t)); };
+    const rgb = (c, a = 1) => `rgba(${c.join(',')},${a})`;
+    const heroEl = document.querySelector('.hero'), glassEl = document.querySelector('.glass-wrap');
+    const fadeEls = [...document.querySelectorAll('.panel, .duo, .site-foot')];
+    const set = (k, v) => flow.style.setProperty(k, v);
+    const frame = t => {
+      const max = Math.max(1, document.documentElement.scrollHeight - innerHeight), p = scrollY / max, s = reduce ? 0 : t / 1000;
+      set('--c1', rgb(tone(p))); set('--c2', rgb(tone(p + .3))); set('--c3', rgb(tone(p + .6)));
+      set('--x1', `${4 + 6 * Math.sin(s * .21)}%`); set('--y1', `${25 + 15 * Math.cos(s * .17) + p * 40}%`);
+      set('--x2', `${96 - 6 * Math.sin(s * .15)}%`); set('--y2', `${55 + 15 * Math.sin(s * .19) - p * 35}%`);
+      set('--x3', `${30 + 40 * (.5 + .5 * Math.sin(s * .09 + p * 3))}%`); set('--y3', `${100 - 4 * Math.sin(s * .11)}%`);
+      const k = Math.min(Math.max(scrollY / ((heroEl ? heroEl.offsetHeight : innerHeight) * .9), 0), 1), hole = 1 - k;
+      let mask = 'none';
+      if (glassEl && hole > .02) { const g = glassEl.getBoundingClientRect(), fr = flow.getBoundingClientRect(), rr = g.width * 1.1 * hole;
+        mask = `radial-gradient(circle at ${(g.left + g.width / 2 - fr.left).toFixed(0)}px ${(g.top + g.height / 2 - fr.top).toFixed(0)}px, transparent 0, transparent ${(rr * .55).toFixed(0)}px, #000 ${rr.toFixed(0)}px)`; }
+      set('--hole-mask', mask);
+      set('--c4', rgb(tone(p + .15), (k * (.55 + .45 * Math.sin(s * .3))).toFixed(2)));
+      set('--x4', `${50 + 18 * Math.sin(s * .12)}%`); set('--y4', `${50 + 12 * Math.cos(s * .1)}%`);
+      let cover = 0;
+      fadeEls.forEach(el => { const r = el.getBoundingClientRect(); cover = Math.max(cover, Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / innerHeight); });
+      set('--flow-o', (.45 * (1 - .85 * Math.min(1, cover * 1.4))).toFixed(3));
+      if (!reduce) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+    if (reduce) addEventListener('scroll', () => requestAnimationFrame(frame), { passive: true });
+  }
+
+  /* ---------- research (PC): centre each number on its unit by the drawn shape, not the glyph box ---------- */
+  // Unbounded's "1" sits right of centre inside its box, so the Japanese unit looked shifted left.
+  const measureCtx = document.createElement('canvas').getContext('2d');
+  const centreNumbers = () => document.querySelectorAll('.r-split .r-val b').forEach(b => {
+    b.style.translate = '';
+    if (innerWidth < 1280) return;
+    const cs = getComputedStyle(b); measureCtx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const m = measureCtx.measureText(b.textContent);
+    b.style.translate = `${(m.width / 2 - (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2).toFixed(1)}px 0`;
+  });
+  document.fonts.ready.then(centreNumbers); addEventListener('resize', centreNumbers);
+
   /* ---------- examples arrows ---------- */
   const exRow = document.getElementById('ex-row');
   document.querySelectorAll('.ex-arrows button').forEach(b => b.addEventListener('click', () => {
