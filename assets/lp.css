@@ -39,6 +39,7 @@
 .hero h1 { font-size: 72px; line-height: 96px; font-weight: 400; margin: 12px 0 0; letter-spacing: .01em; }
 .hero .lead { margin: 38px auto 0; color: var(--ink); font-size: 16px; line-height: 28px; } /* 2026-10-17 視認性のためsub→ink */
 .hero .cta { margin: 32px 0 0; display: flex; justify-content: center; }
+.hero .cta-note { margin: 12px 0 0; font-size: 12px; line-height: 18px; color: var(--sub); }
 
 /* ---------- duo ---------- */
 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-top: 120px; }

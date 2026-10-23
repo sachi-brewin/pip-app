@@ -1,10 +1,15 @@
 // pip LP — small, dependency-free interactions. Respects "Reduce Motion".
 (() => {
-  // Set this when the App Store page exists. Until then the buttons show "近日公開" without a link.
-  // Privacy and support pages link their header button to the top; change their label by hand.
+  // Set this when the App Store page exists. Until then the buttons show "近日公開" without a link
+  // (Apple's badge may only be used once the app is available).
+  // With the URL set, every button becomes the official Japanese App Store badge (2026-10-23 本人決定):
+  // 40px in the header, 48px elsewhere; Apple requires 40px+ on screen and clear space of 1/4 of the height.
+  // Privacy and support pages do not load this file; switch their buttons by hand (README).
   const APP_STORE_URL = '';
   if (APP_STORE_URL) document.querySelectorAll('.js-appstore[data-live]').forEach(a => {
-    a.href = APP_STORE_URL; a.textContent = a.dataset.live; a.removeAttribute('aria-disabled');
+    a.href = APP_STORE_URL; a.removeAttribute('aria-disabled');
+    a.className = `appstore-badge${a.closest('.site-head, .site-foot') ? ' sm' : ''}`;
+    a.innerHTML = '<img src="assets/img/appstore-badge-ja.svg" alt="App Storeからダウンロード" width="109" height="40">';
   });
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

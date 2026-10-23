@@ -55,6 +55,11 @@ a { color: inherit; }
 .pill.lg { height: 60px; padding: 0 36px; font-size: 17px; }
 .pill:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(73,59,53,.18); }
 .pill[aria-disabled="true"] { cursor: default; }
+/* official App Store badge (used once the app is available; lp.js swaps the buttons) */
+.appstore-badge { display: inline-block; line-height: 0; padding: 12px; margin: -12px; border-radius: 8px; }
+.appstore-badge img { height: 48px; width: auto; }
+.appstore-badge.sm { padding: 10px; margin: -10px; }
+.appstore-badge.sm img { height: 40px; }
 .pill[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
 .pill.ghost:hover { box-shadow: 0 8px 18px rgba(73,59,53,.10); }
 
