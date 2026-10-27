@@ -173,14 +173,18 @@
 .ex-row { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 4px; }
 .ex-row::-webkit-scrollbar { display: none; }
 .ex { flex: 0 0 280px; scroll-snap-align: start; margin: 0; }
-.ex .ph { position: relative; height: 340px; border-radius: 20px; overflow: hidden; }
+/* 記入例 案1（2026-10-24 本人決定、Figma v64）：白いカードに写真と文字を入れる */
+.ex { background: #fff; border-radius: 24px; padding: 10px 10px 20px; box-shadow: 0 10px 28px rgba(112,83,71,.08); }
+.ex figcaption { padding: 0 10px; text-wrap: pretty; }
+.ex-row { padding-top: 4px; padding-bottom: 32px; }
+.ex .ph { position: relative; height: 300px; border-radius: 16px; overflow: hidden; }
 .ex .ph img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.06) contrast(.8) saturate(.72) sepia(.12); /* 案B：コントラスト・彩度を下げ、暗部を持ち上げて暖色に（Figmaの画像フィルターに近づけた） */ transition: transform .9s var(--ease); }
 .ex:hover .ph img { transform: scale(1.04); }
 .ex .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(74,59,51,0) 50%, rgba(74,59,51,.5) 100%); }
 .ex .date { position: absolute; left: 22px; bottom: 24px; z-index: 1; color: #fff; }
 .ex .date small { display: block; font: 500 11px/14px var(--en); letter-spacing: .06em; margin-bottom: 8px; }
 .ex .date b { font: 500 34px/38px var(--en); letter-spacing: -.01em; }
-.ex figcaption { margin-top: 14px; padding: 0 4px; font-size: 15px; line-height: 26px; }
+.ex figcaption { margin-top: 14px; padding: 0 10px; font-size: 15px; line-height: 26px; }
 
 /* ---------- collage ---------- */
 .collage { position: relative; height: 900px; border-top: 1px solid var(--line); overflow: hidden; }
@@ -281,7 +285,7 @@
   .ex-lead { font-size: 14px; line-height: 24px; }
   .ex-arrows { display: none; }
   .ex-slider { margin-top: 28px; }
-  .ex-row { padding: 0 24px 4px; scroll-padding-left: 24px; gap: 12px; }
+  .ex-row { padding: 4px 24px 32px; scroll-padding-left: 24px; gap: 12px; }
   .ex { flex-basis: 262px; }
   .ex .ph { height: 300px; }
   .ex .date b { font-size: 30px; line-height: 34px; }
