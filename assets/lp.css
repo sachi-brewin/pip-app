@@ -209,9 +209,32 @@
 .start .b2 { background: #EEC3D6; opacity: .40; left: 24%; top: -45%; width: 48%; }
 .start .b3 { background: #B9D3F5; opacity: .32; left: 58%; top: 5%; width: 50%; }
 .start .b4 { background: #EEC3D6; opacity: .26; left: -4%; top: 50%; width: 38%; }
+/* 下の端にも色を置き、記入例（白）との境目をはっきりさせる（2026-10-28 本人：区切りがあいまい） */
+.start .b5 { background: #EEC8AF; opacity: .30; left: 28%; top: 62%; width: 44%; }
 .keep { position: relative; border-radius: 32px; padding: 96px 48px; text-align: center; background: rgba(255,255,255,.4); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px);
   box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.95), inset 0 1px 2px rgba(255,255,255,.9), 0 20px 50px -6px rgba(112,83,71,.08); }
 .keep .en { display: block; margin-bottom: 14px; }
+/* PC：左に文章、右に保存完了の画面（2026-10-28 本人採用、Figma提案1065:1553）。画面はFVと同じすりガラスの縁で、カードの下で切れる。
+   幅が狭いPCでは画面と余白を縮め、見出しは「日記が続かなかった／あなたへ」の2行に。1400px以上で1行（44px） */
+.keep-ph { display: none; }
+@media (min-width: 1101px) {
+  .start .keep { --ph-w: min(337px, 27vw); --ph-r: min(96px, 6.5vw); overflow: hidden; text-align: left; padding: 80px 0 80px min(112px, 7vw); min-height: 480px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .start .keep > :not(.keep-ph) { position: relative; z-index: 1; max-width: calc(100% - var(--ph-w) - var(--ph-r) - 40px); }
+  .start .keep .h2 { font-size: 44px; line-height: 64px; }
+  .start .keep .h2 br.br-sp { display: inline; }
+  .start .keep .body { margin: 16px 0 0; } /* 見出しと本文の間はほかのセクション（.sec-head .lead 16px）と同じ */
+  .start .keep .points { justify-content: flex-start; }
+  .start .keep-ph { display: block; position: absolute; right: var(--ph-r); top: 64px; width: var(--ph-w); padding: 10px; border-radius: 45px; background: rgba(255,255,255,.38); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.95), inset 0 1px 2px rgba(255,255,255,.8), 0 24px 60px -4px rgba(238,195,214,.35), 0 4px 12px rgba(112,83,71,.08); }
+  .start .keep-ph img { display: block; width: 100%; height: auto; border-radius: 35px; }
+}
+@media (min-width: 1101px) and (max-width: 1279px) {
+  .start .keep .h2 { font-size: 36px; line-height: 52px; } /* 狭いPCでも「日記が続かなかった／あなたへ」の2行に収める */
+}
+@media (min-width: 1400px) {
+  .start .keep .h2 { white-space: nowrap; }
+  .start .keep .h2 br.br-sp { display: none; }
+}
 .keep .h2 { font-size: 52px; line-height: 72px; }
 .keep .body { margin: 32px auto 0; max-width: 720px; font-size: 16px; line-height: 30px; letter-spacing: .04em; }
 .points { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 24px 0 40px; padding: 0; list-style: none; }
@@ -290,17 +313,15 @@
   .hero-b h1 { font-size: 32px; line-height: 1.4; margin-top: 8px; }
   .hero-b .lead { margin-top: 16px; }
   .hero-b .cta { justify-content: center; margin-top: 28px; }
-  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 100%; height: 530px; margin-top: 32px; }
+  /* SP（2026-10-28 本人）：縁を細く（10→6px）、2つの画面を左右にずらして重ねる、浮かぶメモは出さない */
+  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 100%; height: auto; aspect-ratio: 375 / 470; margin-top: 32px; }
   .fv-stage { transform: none !important; width: 100%; height: 100%; }
-  .fv-stage .fv-ph.back { display: none; }
-  .fv-pool { display: none; } /* SPのFigmaには色だまりなし */
-  .fv-stage .fv-ph.front { left: 50%; top: 0; width: 254px; margin-left: -127px; border-radius: 36px; }
-  .fv-stage .c1 { left: 8px; top: -18px; }
-  .fv-stage .c2 { left: auto; right: 8px; top: 176px; }
-  .fv-stage .c3 { left: 10px; top: 492px; }
-  /* SPの3つ目のメモはFigma SP（636:746）どおり「お気に入りの曲を見つけた」 */
-  .fv-stage .c3 .pc-only { display: none; }
-  .fv-stage .c3 .sp-only { display: inline !important; }
+  .fv-pool, .fv-stage .note-chip { display: none; }
+  .fv-stage .fv-ph { padding: 6px; }
+  .fv-stage .fv-ph.back { left: auto; right: 7%; top: 0; width: 49%; border-radius: 29px; }
+  .fv-stage .fv-ph.back img { border-radius: 23px; }
+  .fv-stage .fv-ph.front { left: 7%; top: 9%; width: 52%; border-radius: 30px; }
+  .fv-stage .fv-ph.front img { border-radius: 24px; }
   .pill.lg { height: 56px; padding: 0 32px; font-size: 16px; }
 
   .duo { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; }
@@ -349,19 +370,23 @@
   .start .b2 { left: 30%; top: -18%; width: 95%; }
   .start .b3 { left: 35%; top: 45%; width: 100%; }
   .start .b4 { left: -40%; top: 64%; width: 90%; }
+  .start .b5 { left: 10%; top: 78%; width: 90%; }
   .keep .h2 { font-size: 28px; line-height: 40px; }
   .keep .body { font-size: 14px; line-height: 24px; margin-top: 16px; }
   .points { margin: 20px auto 28px; max-width: 294px; }
 
-  .examples { padding: 16px 0 72px; }
+  .examples { padding: 64px 0 72px; } /* start today!の帯の後なので上を空ける（2026-10-28 本人：狭い） */
   .ex-lead { font-size: 14px; line-height: 24px; }
   .ex-arrows { display: none; }
   .ex-slider { margin-top: 28px; }
   .ex-row { padding: 4px 24px 32px; scroll-padding-left: 24px; gap: 12px; }
-  .ex { flex-basis: 262px; }
-  .ex .ph { height: 300px; }
-  .ex .date b { font-size: 30px; line-height: 34px; }
-  .ex figcaption { font-size: 14px; line-height: 23px; }
+  /* カードを小さくし、1画面に1枚半ほど見せる（2026-10-28 本人） */
+  .ex { flex-basis: 212px; padding: 8px 8px 16px; border-radius: 20px; }
+  .ex .ph { height: 244px; border-radius: 13px; }
+  .ex .date { left: 16px; bottom: 18px; }
+  .ex .date small { font-size: 10px; margin-bottom: 6px; }
+  .ex .date b { font-size: 26px; line-height: 30px; }
+  .ex figcaption { margin-top: 12px; padding: 0 8px; font-size: 13px; line-height: 21px; }
 
   .collage { height: auto; padding: 232px 0 96px; }
   .collage .in-wrap { position: static; padding: 0 24px; }
