@@ -8,8 +8,7 @@
   const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6823105506';
   if (APP_STORE_URL) document.querySelectorAll('.js-appstore[data-live]').forEach(a => {
     a.href = APP_STORE_URL; a.removeAttribute('aria-disabled');
-    // keep foot-dl: it places the footer button in the grid
-    a.className = `appstore-badge${a.closest('.site-head, .site-foot') ? ' sm' : ''}${a.classList.contains('foot-dl') ? ' foot-dl' : ''}`;
+    a.className = `appstore-badge${a.closest('.site-head') ? ' sm' : ''}`;
     a.innerHTML = '<img src="assets/img/appstore-badge-ja.svg" alt="App Storeからダウンロード" width="109" height="40">';
   });
 

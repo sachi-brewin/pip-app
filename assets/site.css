@@ -106,11 +106,11 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
 .faq-contact a { color: var(--ink); text-underline-offset: 3px; }
 
 /* ---------- footer ---------- */
-.site-foot { position: relative; background: var(--panel); padding: 56px 0 120px; overflow: hidden; }
+/* 背景なし＋上の罫線（2026-10-27 本人：グレーだと上のグラデと混じって濁る→白→背景なしに決定） */
+.site-foot { position: relative; border-top: 1px solid var(--line); padding: 56px 0 120px; overflow: hidden; }
 /* Figma Footer (PC 618:627 v35 / SP 636:735 v34) */
-.foot { position: relative; display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 250px) minmax(max-content, 1fr) auto; column-gap: 0; grid-template-areas: "brand sup pol dl"; align-items: start; }
+.foot { position: relative; display: grid; grid-template-columns: minmax(0, 580px) minmax(0, 250px) minmax(max-content, 1fr); column-gap: 0; grid-template-areas: "brand sup pol"; align-items: start; }
 .foot-title { display: none; margin: 0; font-size: 22px; line-height: 32px; font-weight: 700; }
-.foot-dl { grid-area: dl; }
 .foot-brand { grid-area: brand; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .foot-icon { width: 90px; height: 90px; border-radius: 13px; box-shadow: 0 6px 16px rgba(112,83,71,.12); }
 .foot-logo { width: 56px; margin-top: 10px; } /* キャラクターとの間 16→26px（2026-10-17） */
@@ -154,8 +154,8 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .menu-panel a { display: block; padding: 14px 0; text-decoration: none; font-size: 15px; font-weight: 700; line-height: 22px; color: var(--ink); }
   .menu-panel a + a { border-top: 1px solid var(--line); }
   .site-foot { padding: 48px 0 56px; }
-  /* Figma Footer SP (636:735 v35): brand -> links -> download -> copyright */
-  .foot { grid-template-columns: auto auto; justify-content: start; column-gap: 48px; grid-template-areas: "brand brand" "sup pol" "dl dl" "copy copy"; }
+  /* Figma Footer SP (636:735 v71): brand -> links -> copyright（ダウンロードは2026-10-27に外した） */
+  .foot { grid-template-columns: auto auto; justify-content: start; column-gap: 48px; grid-template-areas: "brand brand" "sup pol" "copy copy"; }
   .foot-brand { gap: 12px; margin-bottom: 32px; }
   .foot-icon { width: 64px; height: 64px; border-radius: 14px; }
   .foot-logo { width: 40px; margin-top: 0; } /* SPはヘッダーのロゴと同じ幅 */
@@ -163,9 +163,6 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .foot-col h2 { margin-bottom: 10px; }
   .foot-col ul { line-height: 20px; }
   .foot-col li + li { margin-top: 10px; }
-  .foot-dl { justify-self: start; margin-top: 32px; }
-  /* the badge's -10px tap margin would cancel the 32px gap: keep the visible gap at 32px */
-  .appstore-badge.sm.foot-dl { margin-top: 22px; }
   .appstore-badge:not(.sm) { padding: 14px; margin: -14px; }
   .appstore-badge:not(.sm) img { height: 56px; }
   .foot-copy { position: static; grid-area: copy; margin-top: 32px; font-size: 11px; }
