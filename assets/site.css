@@ -56,8 +56,9 @@ a { color: inherit; }
 .pill:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(73,59,53,.18); }
 .pill[aria-disabled="true"] { cursor: default; }
 /* official App Store badge (used once the app is available; lp.js swaps the buttons) */
-.appstore-badge { display: inline-block; line-height: 0; padding: 12px; margin: -12px; border-radius: 8px; }
-.appstore-badge img { height: 48px; width: auto; }
+.appstore-badge { display: inline-block; line-height: 0; padding: 15px; margin: -15px; border-radius: 8px; }
+/* same height as the former large button (60px, 56px on phones); clear space = 1/4 of the height */
+.appstore-badge img { height: 60px; width: auto; }
 .appstore-badge.sm { padding: 10px; margin: -10px; }
 .appstore-badge.sm img { height: 40px; }
 .pill[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
@@ -146,7 +147,7 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .site-nav, .head-actions .ghost { display: none; }
   /* before scrolling: logo left, menu right (Figma SP Header); the download button joins after scrolling */
   .menu-btn { display: inline-flex; }
-  .site-head:not(.is-scrolled) .head-actions .pill { display: none; }
+  .site-head:not(.is-scrolled) .head-actions .pill, .site-head:not(.is-scrolled) .head-actions .appstore-badge { display: none; }
   /* Figma 状態 / SPメニューを開いたとき */
   .menu-panel { position: fixed; top: 70px; left: 12px; right: 12px; pointer-events: auto; padding: 8px 20px; border-radius: 24px; background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(112,83,71,.10); }
   .menu-panel.open { display: block; }
@@ -165,6 +166,8 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .foot-dl { justify-self: start; margin-top: 32px; }
   /* the badge's -10px tap margin would cancel the 32px gap: keep the visible gap at 32px */
   .appstore-badge.sm.foot-dl { margin-top: 22px; }
+  .appstore-badge:not(.sm) { padding: 14px; margin: -14px; }
+  .appstore-badge:not(.sm) img { height: 56px; }
   .foot-copy { position: static; grid-area: copy; margin-top: 32px; font-size: 11px; }
   .en { font-size: 12px; line-height: 18px; }
   .h2 { font-size: 26px; line-height: 38px; }
