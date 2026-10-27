@@ -90,7 +90,9 @@
   .hero-b .cta { justify-content: center; }
   .fv-qr { margin-left: auto; margin-right: auto; text-align: center; }
   .qr-label { align-items: center; }
-  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 672px; height: 649px; margin: 48px auto 0; }
+  /* iPad横など（2026-10-28 本人：画像が大きすぎ）：端末とメモを0.75倍に */
+  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 504px; height: 487px; margin: 48px auto 0; }
+  .hero-b .fv-stage { transform: scale(.75); }
 }
 .hero-b { overflow-x: clip; }
 
@@ -218,13 +220,13 @@
    幅が狭いPCでは画面と余白を縮め、見出しは「日記が続かなかった／あなたへ」の2行に。1400px以上で1行（44px） */
 .keep-ph { display: none; }
 @media (min-width: 1101px) {
-  .start .keep { --ph-w: min(337px, 27vw); --ph-r: min(96px, 6.5vw); overflow: hidden; text-align: left; padding: 80px 0 80px min(112px, 7vw); min-height: 480px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .start .keep { --ph-w: min(300px, 24vw); --ph-r: min(96px, 6.5vw); overflow: hidden; text-align: left; padding: 80px 0 80px min(112px, 7vw); min-height: 540px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
   .start .keep > :not(.keep-ph) { position: relative; z-index: 1; max-width: calc(100% - var(--ph-w) - var(--ph-r) - 40px); }
   .start .keep .h2 { font-size: 44px; line-height: 64px; }
   .start .keep .h2 br.br-sp { display: inline; }
   .start .keep .body { margin: 16px 0 0; } /* 見出しと本文の間はほかのセクション（.sec-head .lead 16px）と同じ */
   .start .keep .points { justify-content: flex-start; }
-  .start .keep-ph { display: block; position: absolute; right: var(--ph-r); top: 64px; width: var(--ph-w); padding: 10px; border-radius: 45px; background: rgba(255,255,255,.38); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
+  .start .keep-ph { display: block; position: absolute; right: var(--ph-r); top: 56px; width: var(--ph-w); padding: 10px; border-radius: 45px; background: rgba(255,255,255,.38); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
     box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.95), inset 0 1px 2px rgba(255,255,255,.8), 0 24px 60px -4px rgba(238,195,214,.35), 0 4px 12px rgba(112,83,71,.08); }
   .start .keep-ph img { display: block; width: 100%; height: auto; border-radius: 35px; }
 }
@@ -314,7 +316,7 @@
   .hero-b .lead { margin-top: 16px; }
   .hero-b .cta { justify-content: center; margin-top: 28px; }
   /* SP（2026-10-28 本人）：縁を細く（10→6px）、2つの画面を左右にずらして重ねる、浮かぶメモは出さない */
-  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 100%; height: auto; aspect-ratio: 375 / 470; margin-top: 32px; }
+  .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 100%; max-width: 440px; height: auto; aspect-ratio: 375 / 470; margin: 32px auto 0; } /* iPad縦では440pxまで（2026-10-28） */
   .fv-stage { transform: none !important; width: 100%; height: 100%; }
   .fv-pool, .fv-stage .note-chip { display: none; }
   .fv-stage .fv-ph { padding: 6px; }
@@ -422,7 +424,7 @@ body { background: transparent; }
 @media (min-width: 1280px) {
   .r-split { display: grid; grid-template-columns: 420px minmax(0, 1fr); column-gap: 96px; align-items: start; }
   .r-split > .sec-head { position: sticky; top: 140px; text-align: left; margin-top: 48px; }
-  .r-split > .sec-head .h2 { font-size: 40px; line-height: 60px; }
+  .r-split > .sec-head .h2 { font-size: 44px; line-height: 64px; } /* ほかの見出しと同じ44px（2026-10-28 本人） */
   .r-split > .sec-head .h2 br.br-sp { display: inline; }
   .r-note-pc { display: block; text-align: left; margin-top: 24px; line-height: 20px; }
   .r-note-sp { display: none; }
