@@ -200,6 +200,8 @@
 .collage .float.pc-only { left: calc(50% + var(--x) - 720px); }
 .collage .c-copy p { margin: 0; font-size: 16px; line-height: 28px; letter-spacing: .04em; color: var(--ink); } /* 2026-10-17 ほかのセクション本文とそろえる */
 .collage .c-copy .pill { margin-top: 32px; }
+/* the badge replaces the button after release: same visible gap (its tap margin is -15px) */
+.collage .c-copy .appstore-badge { margin-top: 17px; }
 
 /* ---------- motion helpers ---------- */
 .float { animation: float var(--p, 5s) ease-in-out var(--dl, 0s) infinite; }
@@ -297,6 +299,7 @@
   .collage .c-copy { margin-top: 20px; }
   .collage .c-copy p { font-size: 14px; line-height: 24px; }
   .collage .c-copy .pill { display: flex; width: fit-content; margin: 28px auto 0; }
+  .collage .c-copy .appstore-badge { display: block; width: fit-content; margin: 14px auto -14px; }
 }
 
 /* ---------- moving warm background behind the page (2026-10-17, prototype C) ----------
