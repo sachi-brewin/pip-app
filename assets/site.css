@@ -163,6 +163,8 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .foot-col ul { line-height: 20px; }
   .foot-col li + li { margin-top: 10px; }
   .foot-dl { justify-self: start; margin-top: 32px; }
+  /* the badge's -10px tap margin would cancel the 32px gap: keep the visible gap at 32px */
+  .appstore-badge.sm.foot-dl { margin-top: 22px; }
   .foot-copy { position: static; grid-area: copy; margin-top: 32px; font-size: 11px; }
   .en { font-size: 12px; line-height: 18px; }
   .h2 { font-size: 26px; line-height: 38px; }

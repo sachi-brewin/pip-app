@@ -5,10 +5,11 @@
   // With the URL set, every button becomes the official Japanese App Store badge (2026-10-23 本人決定):
   // 40px in the header, 48px elsewhere; Apple requires 40px+ on screen and clear space of 1/4 of the height.
   // Privacy and support pages do not load this file; switch their buttons by hand (README).
-  const APP_STORE_URL = '';
+  const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6823105506';
   if (APP_STORE_URL) document.querySelectorAll('.js-appstore[data-live]').forEach(a => {
     a.href = APP_STORE_URL; a.removeAttribute('aria-disabled');
-    a.className = `appstore-badge${a.closest('.site-head, .site-foot') ? ' sm' : ''}`;
+    // keep foot-dl: it places the footer button in the grid
+    a.className = `appstore-badge${a.closest('.site-head, .site-foot') ? ' sm' : ''}${a.classList.contains('foot-dl') ? ' foot-dl' : ''}`;
     a.innerHTML = '<img src="assets/img/appstore-badge-ja.svg" alt="App Storeからダウンロード" width="109" height="40">';
   });
 
