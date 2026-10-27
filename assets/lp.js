@@ -6,8 +6,17 @@
   // 40px in the header, 48px elsewhere; Apple requires 40px+ on screen and clear space of 1/4 of the height.
   // Privacy and support pages do not load this file; switch their buttons by hand (README).
   const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6823105506';
-  if (APP_STORE_URL) document.querySelectorAll('.js-appstore[data-live]').forEach(a => {
-    a.href = APP_STORE_URL; a.removeAttribute('aria-disabled');
+  // 確認用：URLの末尾に ?release を付けると、公開後の見た目（バッジ・PCのQR）を表示する。リンク先は仮。
+  const PREVIEW_RELEASE = new URLSearchParams(location.search).has('release');
+  const STORE_URL = APP_STORE_URL || (PREVIEW_RELEASE ? 'https://apps.apple.com/' : '');
+  if (STORE_URL) {
+    document.documentElement.classList.add('is-released');
+    // PCのFVのQR（2026-10-24 本人決定）：URL確定後に assets/img/appstore-qr.svg を作って置く。ないあいだは枠だけ表示。
+    const qr = document.querySelector('.qr-img');
+    if (qr) { qr.onload = () => { qr.hidden = false; const ph = qr.nextElementSibling; if (ph) ph.hidden = true; }; qr.src = 'assets/img/appstore-qr.svg'; }
+  }
+  if (STORE_URL) document.querySelectorAll('.js-appstore[data-live]').forEach(a => {
+    a.href = STORE_URL; a.removeAttribute('aria-disabled');
     a.className = `appstore-badge${a.closest('.site-head') ? ' sm' : ''}`;
     a.innerHTML = '<img src="assets/img/appstore-badge-ja.svg" alt="App Storeからダウンロード" width="109" height="40">';
   });
@@ -183,9 +192,22 @@
     }
   }
 
+  /* ---------- FV B: the phones and notes keep their 1440 layout and shrink to fit narrower desktops (2026-10-24) ---------- */
+  const fvVisual = document.querySelector('.hero-b .fv-visual'), fvStage = fvVisual && fvVisual.querySelector('.fv-stage'), fvCopy = document.querySelector('.hero-b .fv-copy');
+  if (fvVisual && fvStage && fvCopy) {
+    const fit = () => {
+      if (innerWidth <= 1100) { fvVisual.style.left = fvVisual.style.width = fvVisual.style.height = ''; fvStage.style.transform = ''; return; }
+      const W = 672, H = 649, copyRight = fvCopy.getBoundingClientRect().right;
+      const left = Math.max(innerWidth / 2 - 20, copyRight + 20), s = Math.min(1, (innerWidth - left - 24) / W);
+      fvVisual.style.left = `${left}px`; fvVisual.style.width = `${W * s}px`; fvVisual.style.height = `${H * s}px`;
+      fvStage.style.transform = s < 1 ? `scale(${s.toFixed(3)})` : '';
+    };
+    fit(); addEventListener('resize', fit); document.fonts && document.fonts.ready.then(fit);
+  }
+
   /* ---------- FV parallax: the floating orbs and notes drift at different depths (text never moves) ---------- */
   // Uses the separate `translate` property so it stacks with the float animation's transform.
-  const depthItems = [...document.querySelectorAll('.fv-deco [data-depth]')];
+  const depthItems = [...document.querySelectorAll('.fv-deco [data-depth], .fv-visual [data-depth]')];
   const hero = document.querySelector('.hero');
   if (depthItems.length && hero && !reduce) {
     let ticking = false;
@@ -200,21 +222,22 @@
   }
 
   /* ---------- moving warm background (prototype C, 2026-10-17) ----------
-     Warm pools drift along the edges and cycle peach → coral → pink → light orange with scroll.
+     Pools drift along the edges: left peach↔pink, right blue↔lavender (the app's mood colors, B1 2026-10-27).
+     Each pool only shifts between two neighbouring hues with scroll, so no pool passes through a muddy grey mix.
      During the FV only a small hole around the glass character stays white (so the glass does not get muddy);
      after the FV a fourth pool fades in at the centre. Over the grey panel, the duo cards and the footer the layer fades out. */
   const flow = document.querySelector('.page-bg .flow');
   if (flow) {
-    const WARM = ['#EEC8AF', '#F3C9BC', '#EEC3D6', '#F6D5C0'];
+    const PEACH = '#EEC8AF', PINK = '#EEC3D6', BLUE = '#B9D3F5', LAVENDER = '#D9C9EF';
     const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-    const tone = k => { const n = WARM.length, x = ((k % 1) + 1) % 1 * n, i = Math.floor(x), t = x - i, A = hex(WARM[i]), B = hex(WARM[(i + 1) % n]); return A.map((v, j) => Math.round(v + (B[j] - v) * t)); };
+    const mix = (a, b, k) => { const t = .5 - .5 * Math.cos(k * Math.PI * 2), A = hex(a), B = hex(b); return A.map((v, j) => Math.round(v + (B[j] - v) * t)); };
     const rgb = (c, a = 1) => `rgba(${c.join(',')},${a})`;
     const heroEl = document.querySelector('.hero'), glassEl = document.querySelector('.glass-wrap');
     const fadeEls = [...document.querySelectorAll('.panel, .duo, .site-foot')];
     const set = (k, v) => flow.style.setProperty(k, v);
     const frame = t => {
       const max = Math.max(1, document.documentElement.scrollHeight - innerHeight), p = scrollY / max, s = reduce ? 0 : t / 1000;
-      set('--c1', rgb(tone(p))); set('--c2', rgb(tone(p + .3))); set('--c3', rgb(tone(p + .6)));
+      set('--c1', rgb(mix(PEACH, PINK, p))); set('--c2', rgb(mix(BLUE, LAVENDER, p))); set('--c3', rgb(mix(PINK, PEACH, p)));
       set('--x1', `${4 + 6 * Math.sin(s * .21)}%`); set('--y1', `${25 + 15 * Math.cos(s * .17) + p * 40}%`);
       set('--x2', `${96 - 6 * Math.sin(s * .15)}%`); set('--y2', `${55 + 15 * Math.sin(s * .19) - p * 35}%`);
       set('--x3', `${30 + 40 * (.5 + .5 * Math.sin(s * .09 + p * 3))}%`); set('--y3', `${100 - 4 * Math.sin(s * .11)}%`);
@@ -223,11 +246,12 @@
       if (glassEl && hole > .02) { const g = glassEl.getBoundingClientRect(), fr = flow.getBoundingClientRect(), rr = g.width * 1.1 * hole;
         mask = `radial-gradient(circle at ${(g.left + g.width / 2 - fr.left).toFixed(0)}px ${(g.top + g.height / 2 - fr.top).toFixed(0)}px, transparent 0, transparent ${(rr * .55).toFixed(0)}px, #000 ${rr.toFixed(0)}px)`; }
       set('--hole-mask', mask);
-      set('--c4', rgb(tone(p + .15), (k * (.55 + .45 * Math.sin(s * .3))).toFixed(2)));
+      set('--c4', rgb(mix(LAVENDER, BLUE, p), (k * (.55 + .45 * Math.sin(s * .3))).toFixed(2)));
       set('--x4', `${50 + 18 * Math.sin(s * .12)}%`); set('--y4', `${50 + 12 * Math.cos(s * .1)}%`);
       let cover = 0;
       fadeEls.forEach(el => { const r = el.getBoundingClientRect(); cover = Math.max(cover, Math.max(0, Math.min(r.bottom, innerHeight) - Math.max(r.top, 0)) / innerHeight); });
-      set('--flow-o', (.45 * (1 - .85 * Math.min(1, cover * 1.4))).toFixed(3));
+      // lighter than before (B1 felt too strong) and fully off over the grey panel, so the grey stays clean
+      set('--flow-o', (.34 * (1 - Math.min(1, cover * 1.4))).toFixed(3));
       if (!reduce) requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
