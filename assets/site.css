@@ -175,7 +175,7 @@ body:has(.hero) .site-head:not(.is-scrolled) .site-nav { opacity: 0; visibility:
   .foot-col ul { line-height: 20px; }
   .foot-col li + li { margin-top: 10px; }
   .appstore-badge:not(.sm) { padding: 14px; margin: -14px; }
-  .appstore-badge:not(.sm) img { height: 56px; }
+  .appstore-badge:not(.sm) img { height: 60px; } /* SPもPCと同じ60px（2026-10-28 本人：少し小さい） */
   .foot-copy { position: static; grid-area: copy; margin-top: 32px; font-size: 11px; }
   .en { font-size: 12px; line-height: 18px; }
   .h2 { font-size: 26px; line-height: 38px; }

@@ -247,6 +247,7 @@
 .keep .body { margin: 32px auto 0; max-width: 720px; font-size: 16px; line-height: 30px; letter-spacing: .04em; }
 .points { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 24px 0 40px; padding: 0; list-style: none; }
 .points li { display: inline-flex; align-items: center; gap: 6px; background: #fff; border-radius: 10px; padding: 8px 14px 8px 12px; font-size: 13px; line-height: 20px; font-weight: 700; }
+.points .heart { width: 13px; height: 12px; } /* 文字（13px）の高さにそろえる（2026-10-28 本人：ハートが大きい。以前は共通の18×16） */
 
 /* ---------- examples ---------- */
 .examples { padding: 120px 0 8px; } /* カードの下は影用の32px＋8px＝見た目40px（2026-10-27 本人：下があきすぎ。罫線をなくしたので、for yourselfの浮かぶメモへつなげる） */
@@ -371,7 +372,7 @@
   .start { padding: 56px 0; }
   .keep { border-radius: 24px; padding: 56px 24px; }
   .points li { font-size: 12px; line-height: 20px; }
-  .points .heart { width: 12px; height: 10px; }
+  .points .heart { width: 12px; height: 11px; }
   .start .nj { filter: blur(45px); }
   .start .b1 { left: -40%; top: -8%; width: 90%; }
   .start .b2 { left: 30%; top: -18%; width: 95%; }
