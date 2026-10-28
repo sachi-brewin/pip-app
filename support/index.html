@@ -3,6 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Googleアナリティクス（GA4、2026-10-28）。本番（pip-diary.com）のときだけ読み込む。プライバシーポリシー9.に記載 -->
+  <script>
+    (function () {
+      if (!/(^|\.)pip-diary\.com$/.test(location.hostname)) return;
+      var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9JDP6H20CH'; document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date()); gtag('config', 'G-9JDP6H20CH');
+    })();
+  </script>
   <title>よくある質問 | pip</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="pip">
@@ -16,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="../assets/img/favicon-64.png?v=20261016-2" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-  <link rel="stylesheet" href="../assets/site.css?v=20261028-7">
+  <link rel="stylesheet" href="../assets/site.css?v=20261028-8">
 </head>
 <body>
 <header class="site-head">
@@ -72,6 +81,6 @@
     <small class="foot-copy">© 2026 pip</small>
   </div>
 </footer>
-<script src="../assets/site.js?v=20261028-7" defer></script>
+<script src="../assets/site.js?v=20261028-8" defer></script>
 </body>
 </html>
