@@ -68,17 +68,24 @@
 }
 .hero-b .fv-visual { position: absolute; z-index: 1; left: calc(50% - 20px); top: 42px; width: 672px; height: 649px; }
 .fv-stage { position: absolute; left: 0; top: 0; width: 672px; height: 649px; transform-origin: 0 0; }
-/* 端末 A3 すりガラス（2026-10-27 本人決定、Figma提案1086:1865）：白い半透明の縁10px＋白い線、ピンク寄りの影。画面の大きさは従来どおり */
-.fv-stage .fv-ph { position: absolute; transform: none; padding: 10px; background: rgba(255,255,255,.38); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
-  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.95), inset 0 1px 2px rgba(255,255,255,.8), 0 24px 60px -4px rgba(238,195,214,.35), 0 4px 12px rgba(112,83,71,.08); }
+/* 端末 A2（2026-10-28 本人決定、Figma提案1086:1367。A3のすりガラスから変更）：明るい金属の縁3px＋細い黒の縁3px＋Dynamic Island＋左の横ボタン。
+   FVとstart today!の端末で共通 */
+.fv-stage .fv-ph, .start .keep-ph { padding: 3px; background: linear-gradient(135deg, #FCFAF8 0%, #DCD5CF 45%, #F5F0EC 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.9), 0 2px 6px rgba(73,59,53,.10), 0 30px 60px -6px rgba(112,83,71,.18); }
+.fv-stage .fv-ph { position: absolute; transform: none; }
 .fv-ph img { display: block; border-radius: 28px; }
-.fv-stage .fv-ph.back { left: 350px; top: -4px; width: 262px; border-radius: 38px; }
+.fv-stage .fv-ph img, .start .keep-ph img { border: 3px solid #1F1B19; }
+.fv-stage .fv-ph::after, .start .keep-ph::after { content: ""; position: absolute; left: 35%; top: 13px; width: 30%; aspect-ratio: 3.4; border-radius: 99px; background: #121010; }
+.fv-stage .fv-ph::before, .start .keep-ph::before { content: ""; position: absolute; left: -2px; top: 19%; width: 3px; height: 21%; border-radius: 2px;
+  background: linear-gradient(to bottom, #CFC7C1 0 20%, transparent 20% 34%, #CFC7C1 34% 64%, transparent 64% 72%, #CFC7C1 72% 100%); }
+.fv-stage .fv-ph.back { left: 354px; top: 0; width: 254px; border-radius: 33px; }
+.fv-stage .fv-ph.back img { border-radius: 30px; }
 /* Figma FVの色だまり（青 1000,120 φ480／ピンク 820,420 φ420、30%、ぼかし120）を端末の後ろに。ガラスの縁に色が映る */
 .fv-pool { position: absolute; border-radius: 50%; opacity: .3; filter: blur(60px); pointer-events: none; }
 .fv-pool.p1 { left: 300px; top: 78px; width: 480px; height: 480px; background: #B9D3F5; }
 .fv-pool.p2 { left: 120px; top: 378px; width: 420px; height: 420px; background: #EEC3D6; }
-.fv-stage .fv-ph.front { left: 130px; top: 76px; width: 277px; border-radius: 39px; }
-.fv-ph.front img { border-radius: 29px; }
+.fv-stage .fv-ph.front { left: 134px; top: 80px; width: 269px; border-radius: 35px; }
+.fv-ph.front img { border-radius: 32px; }
 .fv-stage .c1 { left: 0; top: 109px; }
 .fv-stage .c2 { left: 488px; top: 506px; }
 .fv-stage .c3 { left: 0; top: 518px; }
@@ -226,9 +233,8 @@
   .start .keep .h2 br.br-sp { display: inline; }
   .start .keep .body { margin: 16px 0 0; } /* 見出しと本文の間はほかのセクション（.sec-head .lead 16px）と同じ */
   .start .keep .points { justify-content: flex-start; }
-  .start .keep-ph { display: block; position: absolute; right: var(--ph-r); top: 56px; width: var(--ph-w); padding: 10px; border-radius: 45px; background: rgba(255,255,255,.38); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
-    box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.95), inset 0 1px 2px rgba(255,255,255,.8), 0 24px 60px -4px rgba(238,195,214,.35), 0 4px 12px rgba(112,83,71,.08); }
-  .start .keep-ph img { display: block; width: 100%; height: auto; border-radius: 35px; }
+  .start .keep-ph { display: block; position: absolute; right: var(--ph-r); top: 56px; width: var(--ph-w); border-radius: 39px; }
+  .start .keep-ph img { display: block; width: 100%; height: auto; border-radius: 36px; }
 }
 @media (min-width: 1101px) and (max-width: 1279px) {
   .start .keep .h2 { font-size: 36px; line-height: 52px; } /* 狭いPCでも「日記が続かなかった／あなたへ」の2行に収める */
@@ -315,15 +321,14 @@
   .hero-b h1 { font-size: 32px; line-height: 1.4; margin-top: 8px; }
   .hero-b .lead { margin-top: 16px; }
   .hero-b .cta { justify-content: center; margin-top: 28px; }
-  /* SP（2026-10-28 本人）：縁を細く（10→6px）、2つの画面を左右にずらして重ねる、浮かぶメモは出さない */
+  /* SP（2026-10-28 本人）：2つの画面を左右にずらして重ねる、浮かぶメモは出さない。端末はPCと同じA2（金属3px＋黒3px） */
   .hero-b .fv-visual { position: relative; left: auto; top: auto; width: 100%; max-width: 440px; height: auto; aspect-ratio: 375 / 470; margin: 32px auto 0; } /* iPad縦では440pxまで（2026-10-28） */
   .fv-stage { transform: none !important; width: 100%; height: 100%; }
   .fv-pool, .fv-stage .note-chip { display: none; }
-  .fv-stage .fv-ph { padding: 6px; }
   .fv-stage .fv-ph.back { left: auto; right: 7%; top: 0; width: 49%; border-radius: 29px; }
-  .fv-stage .fv-ph.back img { border-radius: 23px; }
+  .fv-stage .fv-ph.back img { border-radius: 26px; }
   .fv-stage .fv-ph.front { left: 7%; top: 9%; width: 52%; border-radius: 30px; }
-  .fv-stage .fv-ph.front img { border-radius: 24px; }
+  .fv-stage .fv-ph.front img { border-radius: 27px; }
   .pill.lg { height: 56px; padding: 0 32px; font-size: 16px; }
 
   .duo { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; }
